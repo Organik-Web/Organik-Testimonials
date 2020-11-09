@@ -255,7 +255,7 @@ class Organik_Testimonials {
 
 	/**
 	 * orgnk_testimonials_cpt_shortcode()
-	 * Shortcode to print FAQs
+	 * Shortcode to print testimonials
 	 * Usage: [testimonials id='1, 2, 3']
 	 */
 	public function orgnk_testimonials_cpt_shortcode( $attributes ) {
