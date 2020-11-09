@@ -51,7 +51,7 @@ class Organik_Testimonials {
 		// Add 'about' page to admin menu
 		add_action( 'admin_menu', array( $this, 'orgnk_testimonials_cpt_admin_about_page' ) );
 
-		// Add post meta to the admin list view
+		// Add post meta to the admin list view for this CPT
 		add_filter( 'manage_' . ORGNK_TESTIMONIALS_CPT_NAME . '_posts_columns', array( $this, 'orgnk_testimonials_cpt_admin_table_column' ) );
 		add_action( 'manage_' . ORGNK_TESTIMONIALS_CPT_NAME . '_posts_custom_column', array( $this, 'orgnk_testimonials_cpt_admin_table_content' ), 10, 2 );
 
