@@ -150,7 +150,7 @@ class Organik_Testimonials {
 
 		$screen = get_current_screen();
 
-		if ( $screen->post_type == ORGNK_TESTIMONIALS_CPT_NAME ) {
+		if ( $screen && $screen->post_type == ORGNK_TESTIMONIALS_CPT_NAME ) {
 			return 'Add person&#39s name';
 		}
 		return $title;
@@ -164,7 +164,7 @@ class Organik_Testimonials {
 
 		$screen = get_current_screen();
 
-		if ( $screen->post_type == ORGNK_TESTIMONIALS_CPT_NAME ) {
+		if ( $screen && $screen->post_type == ORGNK_TESTIMONIALS_CPT_NAME ) {
 			$settings['teeny'] = true;
 			$settings['media_buttons'] = false;
 		}
@@ -180,7 +180,7 @@ class Organik_Testimonials {
 
 		$screen = get_current_screen();
 
-		if ( $screen->post_type == ORGNK_TESTIMONIALS_CPT_NAME ) {
+		if ( $screen && $screen->post_type == ORGNK_TESTIMONIALS_CPT_NAME ) {
 			$remove_buttons = array(
 				'blockquote',
 				'alignleft',
