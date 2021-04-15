@@ -263,34 +263,46 @@ class Organik_Testimonials {
 		static $instance = 0;
 		$instance++;
 
-		$display_type = 'single';
+		$display_type = 'slider';
 
 		// Setup the query arguments
 		$args = array(
 			'post_type'         	=> ORGNK_TESTIMONIALS_CPT_NAME,
 			'post_status' 			=> 'publish',
 			'orderby'           	=> 'menu_order',
-			'order'             	=> 'ASC',
-			'posts_per_page'    	=> 8
+			'order'             	=> 'ASC'
 		);
 
 		// Set the attributes that the user can supply to the shortcode
 		$attribute = shortcode_atts( array(
-			'id'      				=> NULL
+			'id'      				=> NULL,
+			'style'					=> 'slider'
 		), $attributes );
 
+		// If IDs are specified in the shortcode, conver the IDs into an array so we can add it to the query arguments
 		if ( isset( $attribute['id'] ) ) {
 			$post_ids = preg_replace('/\s+/', '', $attribute['id'] ); // Remove all whitespace
 			$post_ids = explode( ',', $post_ids ); // Convert string to array by comma seperation
 			$args['post__in'] = $post_ids;
 		}
 
-		$testimonials_loop = new WP_Query( $args );
-
-		if ( $testimonials_loop->found_posts > 1 ) {
-			$display_type = 'slider';
+		// If the style attribute is set to list in the shortcode, then force the display type to be 'list'
+		if ( isset( $attribute['style'] ) && $attribute['style'] === 'list' ) {
+			$display_type = 'list';
 		}
 
+		// Finally, determine the number of posts to retrieve based on the final display type setting
+		$args['posts_per_page'] = ( $display_type === 'slider' ) ? 8 : -1; 
+
+		// Run the query
+		$testimonials_loop = new WP_Query( $args );
+
+		// Once the query is run, if only 1 post was found, then we want to default to the 'list' style to avoid a slider with only one slide
+		if ( $testimonials_loop->found_posts <= 1 ) {
+			$display_type = 'list';
+		}
+
+		// Begin output
 		ob_start();
 
 		if ( file_exists( get_template_directory() . '/template-parts/shortcodes/shortcode-testimonials.php' ) ) {
