@@ -17,6 +17,8 @@ if ( $testimonials_loop->have_posts() ) : ?>
 
             <?php while ( $testimonials_loop->have_posts() ) : $testimonials_loop->the_post();
 
+                if ( $display_type === 'list' && $testimonials_loop->current_post > 0 ) echo '<hr>';
+
                 // Variables
                 $name           = esc_html( get_the_title() );
                 $position       = esc_html( get_post_meta( get_the_ID(), 'testimonial_position', true ) );
