@@ -27,11 +27,14 @@ class Organik_Testimonials {
         }
         return self::$instance;
 	}
-	
+
 	/**
      * Constructor function
      */
 	public function __construct() {
+
+		// Register ACF Fields
+		new Organik_Testimonials_ACF_Fields();
 
 		// Define the CPT rewrite variable on init - required here because we need to use get_permalink() which isn't available when plugins are initialised
 		add_action( 'init', array( $this, 'orgnk_testimonials_cpt_rewrite_slug' ) );
@@ -58,7 +61,7 @@ class Organik_Testimonials {
 		// Register shortcode
 		add_shortcode( ORGNK_TESTIMONIALS_SHORTCODE_NAME, array( $this, 'orgnk_testimonials_cpt_shortcode' ) );
 	}
-	
+
 	/**
 	 * orgnk_testimonials_cpt_register()
 	 * Register the custom post type
@@ -94,14 +97,14 @@ class Organik_Testimonials {
 			'items_list_navigation' 		=> 'Testimonials list navigation',
 			'filter_items_list'     		=> 'Filter testimonials list'
 		);
-	
+
 		$rewrite = array(
 			'slug'                  		=> ORGNK_TESTIMONIALS_REWRITE_SLUG, // The slug for single posts
 			'with_front'            		=> false,
 			'pages'                 		=> true,
 			'feeds'                 		=> false
 		);
-	
+
 		$args = array(
 			'label'                 		=> ORGNK_TESTIMONIALS_SINGLE_NAME,
 			'description'           		=> 'Manage and display testimonials',
@@ -142,7 +145,7 @@ class Organik_Testimonials {
 		define( 'ORGNK_TESTIMONIALS_REWRITE_SLUG', $archive_permalink );
 	}
 
-	/** 
+	/**
 	 * orgnk_testimonials_cpt_title_placeholder()
 	 * Change CPT title placeholder on edit screen
 	 */
@@ -205,10 +208,10 @@ class Organik_Testimonials {
 	public function orgnk_testimonials_cpt_admin_about_page() {
 		add_submenu_page(
 			'edit.php?post_type=' . ORGNK_TESTIMONIALS_CPT_NAME,
-			'About ' . ORGNK_TESTIMONIALS_PLURAL_NAME, 
-			'About ' . ORGNK_TESTIMONIALS_PLURAL_NAME, 
-			'edit_pages', 
-			'about-' . ORGNK_TESTIMONIALS_CPT_NAME, 
+			'About ' . ORGNK_TESTIMONIALS_PLURAL_NAME,
+			'About ' . ORGNK_TESTIMONIALS_PLURAL_NAME,
+			'edit_pages',
+			'about-' . ORGNK_TESTIMONIALS_CPT_NAME,
 			array( $this, 'orgnk_testimonials_cpt_admin_about_page_content' )
 		);
 	}
@@ -226,7 +229,7 @@ class Organik_Testimonials {
 	 * Register new column(s) in admin list view
 	 */
 	public function orgnk_testimonials_cpt_admin_table_column( $defaults ) {
-		
+
 		$new_order = array();
 
 		foreach( $defaults as $key => $value ) {
@@ -245,7 +248,7 @@ class Organik_Testimonials {
 	 * Return the content for the new admin list view columns for each post
 	 */
 	public function orgnk_testimonials_cpt_admin_table_content( $column_name, $post_id ) {
-			
+
 		global $post;
 
 		if ( $column_name == 'shortcode' ) {
@@ -292,7 +295,7 @@ class Organik_Testimonials {
 		}
 
 		// Finally, determine the number of posts to retrieve based on the final display type setting
-		$args['posts_per_page'] = ( $display_type === 'slider' ) ? 8 : -1; 
+		$args['posts_per_page'] = ( $display_type === 'slider' ) ? 8 : -1;
 
 		// Run the query
 		$testimonials_loop = new WP_Query( $args );
