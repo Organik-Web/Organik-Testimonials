@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Main Organik_Testimonials_ACF_Fields class
  */
@@ -10,7 +9,7 @@ class Organik_Testimonials_ACF_Fields {
      */
 	public function __construct() {
 
-		// Hook into the 'init' action to add the ACF Fields on to CPT
+		// Hook into the 'init' action to add the ACF fields
 		add_filter( 'init', array( $this, 'orgnk_testimonials_cpt_acf_fields' ) );
 	}
 
@@ -24,18 +23,18 @@ class Organik_Testimonials_ACF_Fields {
 		if ( ! class_exists( 'ACF' ) || ! function_exists( 'acf_add_local_field_group' ) || ! defined( 'ORGNK_TESTIMONIALS_CPT_NAME' )  || ! is_admin() ) return;
 
         // Field Group - Single Testimonial Settings
-        acf_add_local_field_group(array(
-            'key'       => 'group_5f8803f6a9a3e',
-            'title'     => 'Single Testimonial Settings',
-            'fields'    => array(
+        acf_add_local_field_group( array(
+            'key'               => 'group_5f8803f6a9a3e',
+            'title'             => 'Single Testimonial Settings',
+            'fields'            => array(
 
-                // Field - Testimonial Position  - Text
+                // Field - Testimonial Position - Text
                 array(
                     'key'               => 'field_5f8804025c310',
                     'label'             => 'Position',
                     'name'              => 'testimonial_position',
                     'type'              => 'text',
-                    'instructions'      => 'Enter the this person\'s position or title.',
+                    'instructions'      => 'Enter this person\'s position or title.',
                     'required'          => 0,
                     'conditional_logic' => 0,
                     'wrapper'           => array(
@@ -76,9 +75,9 @@ class Organik_Testimonials_ACF_Fields {
             'location'                  => array(
                 array(
                     array(
-                        'param'             => 'post_type',
-                        'operator'          => '==',
-                        'value'             => ORGNK_TESTIMONIALS_CPT_NAME,
+                        'param'                 => 'post_type',
+                        'operator'              => '==',
+                        'value'                 => ORGNK_TESTIMONIALS_CPT_NAME,
                     ),
                 ),
             ),

@@ -33,11 +33,11 @@ class Organik_Testimonials {
      */
 	public function __construct() {
 
-		// Register ACF Fields
-		new Organik_Testimonials_ACF_Fields();
-
 		// Define the CPT rewrite variable on init - required here because we need to use get_permalink() which isn't available when plugins are initialised
 		add_action( 'init', array( $this, 'orgnk_testimonials_cpt_rewrite_slug' ) );
+
+		// Register ACF Fields
+		new Organik_Testimonials_ACF_Fields();
 
         // Hook into the 'init' action to add the Custom Post Type
 		add_action( 'init', array( $this, 'orgnk_testimonials_cpt_register' ) );
