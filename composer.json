@@ -1,0 +1,16 @@
+{
+    "name": "organikweb/testimonials",
+    "description": "Create and manage testimonials",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Organik Web",
+            "email": "hello@organikweb.com.au"
+        }
+    ],
+    "require": {},
+    "extra": {
+        "installer-name": "orgnk-testimonials"
+    }
+}
